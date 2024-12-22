@@ -1,7 +1,5 @@
 # 视频生成字幕并翻译
 
-![Build Status](https://github.com/yourusername/video-generate-subtitles-and-translate/actions/workflows/build.yml/badge.svg)
-
 一个基于Whisper的视频字幕生成和翻译工具，支持多种格式音视频文件转写和翻译。
 
 ## 📥 下载
