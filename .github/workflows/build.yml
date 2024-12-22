@@ -52,6 +52,10 @@ jobs:
         pyinstaller --noconfirm --onefile --windowed --icon "app.ico" `
           --add-data "app.ico;." `
           --add-data "version.txt;." `
+          --exclude-module torch `
+          --exclude-module whisper `
+          --exclude-module numpy `
+          --exclude-module tqdm `
           --name "$outputName" `
           "video-generate-subtitles-and-translate.py"
         
@@ -90,7 +94,7 @@ jobs:
           - 支持一键运行
           
           ### 系统要求
-          - Windows 10/11 64位系统
+          - Windows 10/11 64���系统
           - 已安装FFmpeg并添加到系统PATH
           - 建议4GB以上内存
           - 如有GPU可加速处理

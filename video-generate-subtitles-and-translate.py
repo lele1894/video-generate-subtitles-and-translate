@@ -12,6 +12,7 @@ from tenacity import retry, stop_after_attempt, wait_fixed
 import urllib3
 from pathlib import Path
 import sys
+import messagebox
 
 # 全局变量
 root = None
@@ -85,7 +86,7 @@ def init_whisper_model():
     global whisper_model
     try:
         if whisper_model is None:
-            update_status("正在加载Whisper模型...")
+            update_status("��在加载Whisper模型...")
             whisper_model = whisper.load_model("base")
             update_status("Whisper模型加载完成")
         return True
@@ -250,7 +251,7 @@ def run_processing_thread(func, *args):
 def open_audio_file():
     file_path = filedialog.askopenfilename(
         title="选择音频/视频文件", 
-        filetypes=[("音频/视频文件", "*.mp3;*.mp4;*.wav;*.mkv;*.flac")])
+        filetypes=[("音频/��频文件", "*.mp3;*.mp4;*.wav;*.mkv;*.flac")])
     if file_path:
         # 显示文件信息
         file_size = Path(file_path).stat().st_size / (1024*1024)  # 转换为MB
@@ -323,7 +324,37 @@ def create_main_window():
 
     root.mainloop()
 
-if __name__ == "__main__":
+def check_dependencies():
+    """检查并安装必要的依赖"""
+    try:
+        import whisper
+    except ImportError:
+        update_status("正在安装必要的依赖，这可能需要几分钟...")
+        try:
+            import subprocess
+            subprocess.check_call([sys.executable, "-m", "pip", "install", 
+                "torch", "torchvision", "torchaudio", 
+                "--index-url", "https://download.pytorch.org/whl/cu118"])
+            subprocess.check_call([sys.executable, "-m", "pip", "install", "openai-whisper"])
+            update_status("依赖安装完成！")
+            return True
+        except Exception as e:
+            update_status(f"依赖安装失败: {str(e)}")
+            update_status("请手动安装依赖:")
+            update_status("1. 安装 PyTorch: pip install torch torchvision torchaudio")
+            update_status("2. 安装 Whisper: pip install openai-whisper")
+            return False
+    return True
+
+def main():
     # 在文件开头添加以下代码，禁用SSL警告
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    
+    if not check_dependencies():
+        messagebox.showerror("错误", "必要的依赖安装失败，请按照提示手动安装。")
+        return
+        
     create_main_window()
+
+if __name__ == "__main__":
+    main()

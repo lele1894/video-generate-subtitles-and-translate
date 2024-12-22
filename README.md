@@ -118,9 +118,6 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 您需要：
 1. 添加合适的软件截图(zs.jpg)
 2. 更新您的GitHub仓库地址
-3. 如果��特定的联系方式，可以添加到README中
+3. 如果特定的联系方式，可以添加到README中
 
 以上由"Cursor"生成
-```
-
-</rewritten_file>
