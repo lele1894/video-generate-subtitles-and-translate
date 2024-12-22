@@ -12,12 +12,6 @@ on:
   release:
     types: [created]
 
-# 添加权限配置
-permissions:
-  contents: write
-  packages: write
-  releases: write
-
 jobs:
   build:
     name: 构建Windows程序
@@ -26,8 +20,6 @@ jobs:
     steps:
     - name: 检出代码
       uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
     
     - name: 配置Python环境
       uses: actions/setup-python@v4
