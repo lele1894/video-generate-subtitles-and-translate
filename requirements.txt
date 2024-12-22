@@ -1,5 +1,5 @@
 # 基础依赖
-whisper==1.1.10
+openai-whisper==1.1.10
 pydub==0.25.1
 langdetect==1.0.9
 requests==2.31.0
@@ -9,9 +9,18 @@ urllib3==2.0.7
 # PyTorch (根据系统自动选择CPU或GPU版本)
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torch>=2.1.1
+torchaudio>=2.1.1
+torchvision>=0.16.1
+
+# 音频处理依赖
+ffmpeg-python>=0.2.0
 
 # 其他依赖
 numpy>=1.24.3
+tqdm>=4.65.0
+more-itertools>=10.1.0
+tiktoken>=0.5.1
+regex>=2023.6.3
 tkinter  # 通常包含在Python标准库中
 pathlib  # 通常包含在Python标准库中
 
