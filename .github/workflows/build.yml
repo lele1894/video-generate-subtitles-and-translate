@@ -32,12 +32,6 @@ jobs:
         pip install -r requirements.txt
         pip install pyinstaller
         
-    - name: 下载FFmpeg
-      run: |
-        curl -L https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip -o ffmpeg.zip
-        7z x ffmpeg.zip
-        move ffmpeg-master-latest-win64-gpl\bin\ffmpeg.exe .
-        
     - name: 创建版本文件
       run: |
         if ("${{ github.event_name }}" -eq "workflow_dispatch") {
@@ -52,7 +46,6 @@ jobs:
         $outputName = "视频生成字幕并翻译_${version}.exe"
         pyinstaller --noconfirm --onefile --windowed --icon "app.ico" `
           --add-data "app.ico;." `
-          --add-data "ffmpeg.exe;." `
           --add-data "version.txt;." `
           --name "$outputName" `
           "视频生成字幕并翻译.py"
@@ -81,15 +74,27 @@ jobs:
           ### 更新内容
           - 自动构建版本
           
+          ### 使用前准备
+          1. 安装 FFmpeg
+             - Windows: 下载FFmpeg并添加到系统PATH
+             - Linux: sudo apt-get install ffmpeg
+             - MacOS: brew install ffmpeg
+          
           ### 下载说明
-          - Windows 64���可执行程序
-          - 包含FFmpeg，无需额外安装
+          - Windows 64位可执行程序
           - 支持一键运行
           
           ### 系统要求
           - Windows 10/11 64位系统
+          - 已安装FFmpeg并添加到系统PATH
           - 建议4GB以上内存
           - 如有GPU可加速处理
+          
+          ### 常见问题
+          1. 提示"找不到FFmpeg"
+             - 请确保已正确安装FFmpeg并添加到系统PATH
+             - 可以在命令行中运行 ffmpeg -version 测试是否安装成功
+          
         draft: true
         prerelease: false
         files: dist/*.exe
