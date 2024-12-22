@@ -1,0 +1,22 @@
+# 基础依赖
+whisper==1.1.10
+pydub==0.25.1
+langdetect==1.0.9
+requests==2.31.0
+tenacity==8.2.3
+urllib3==2.0.7
+
+# PyTorch (根据系统自动选择CPU或GPU版本)
+--find-links https://download.pytorch.org/whl/torch_stable.html
+torch>=2.1.1
+
+# 其他依赖
+numpy>=1.24.3
+tkinter  # 通常包含在Python标准库中
+pathlib  # 通常包含在Python标准库中
+
+# 音频处理依赖
+# Windows需要安装ffmpeg
+# Linux: sudo apt-get install ffmpeg
+# MacOS: brew install ffmpeg
+  
